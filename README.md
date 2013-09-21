@@ -1,4 +1,4 @@
 titlebot
 ========
 
-titlebot
+An IRC robot
