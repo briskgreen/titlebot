@@ -7,7 +7,7 @@ import urllib2;
 import ssl;
 
 user="USER titlebot titlebot irc.freenode.net :Brisk's titlebot\n";
-nick="NICK _titlebot\n";
+nick="NICK titlebot_\n";
 channel=['#debian_cn'];
 
 def join_channel(ssl):
@@ -15,8 +15,12 @@ def join_channel(ssl):
 		ssl.send("JOIN "+c+"\n");
 
 def get_channel(str):
-	p=re.compile('.*(#.[^ ]*)').findall(data);
-	return p[0];
+	p=re.compile('.*(#.[^ ]*)').findall(str);
+	if p:
+		return p[0];
+	else:
+		p=re.compile(':(.[^!]*)').findall(str);
+		return p[0];
 
 def _decode(str):
 	try:
@@ -51,8 +55,8 @@ def get_title(ssl,p,chan):
 
 def get_magnet(ssl,p,chan):
 	for magnet in p:
-		s1=urllib2.unquote(magnet.replace("\n",""));
-		s2=s1.replace("\r","");
+		s1=urllib2.unquote(magnet).replace("\n"," ");
+		s2=s1.replace("\r"," ");
 		ssl.send("PRIVMSG "+chan+" :"+"标题："+s2+"\n");
 
 s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
@@ -73,6 +77,7 @@ while True:
     p=re.compile('magnet:\?xt=urn:btih:.[^&]*&amp;dn=(.[\S]*)').findall(data);
     if p:
 	    get_magnet(ssl,p,get_channel(data));
+	    del(p);
     if 'PING' in data and 'PRIVMSG' not in data:
 	    pong_serv(ssl,data);
     del(data);
