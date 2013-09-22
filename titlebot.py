@@ -69,6 +69,8 @@ join_channel(ssl);
 
 while True:
     data=ssl.recv(1024);
+    if not data:
+	    quit();
     if 'http' and 'PRIVMSG' in data:
         p=re.compile('(http.?://[\S]*)').findall(data);
         if p:
