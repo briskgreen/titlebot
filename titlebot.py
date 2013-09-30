@@ -15,11 +15,11 @@ def join_channel(ssl):
 		ssl.send("JOIN "+c+"\n");
 
 def get_channel(str):
-	p=re.compile('(#.[^ ]*)').findall(str);
+	p=re.compile('^:.[^ ]* PRIVMSG (#.[^ ]*)').findall(str);
 	if p:
 		return p[0];
 	else:
-		p=re.compile(':(.[^!]*)').findall(str);
+		p=re.compile('^:(.[^!]*)').findall(str);
 		return p[0];
 
 def _decode(str):
