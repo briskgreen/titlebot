@@ -5,6 +5,8 @@ import socket;
 import re;
 import urllib2;
 import ssl;
+import gzip;
+from StringIO import StringIO
 
 user="USER titlebot titlebot irc.freenode.net :Brisk's titlebot\n";
 nick="NICK titlebot_\n";
@@ -40,10 +42,19 @@ def pong_serv(ssl,str):
 	l[1]='O';
 	ssl.send(''.join(l));
 
+def gunziptxt(data):
+	buf=StringIO(data);
+	of=gzip.GzipFile(fileobj=buf,mode="rb");
+	outdata=of.read();
+	return outdata;
+
 def get_title(ssl,p,chan):
 	for url in p:
 		try:
-			get=urllib2.urlopen(url).read();
+			res=urllib2.urlopen(url);
+			get=res.read();
+			if res.info()["content-encoding"] == 'gzip':
+				get=gunziptxt(get);
 		except Exception,err:
 			ssl.send("PRIVMSG "+chan+" :"+str(err)+"\n");
 			continue;
