@@ -56,8 +56,11 @@ def get_title(ssl,p,chan):
 			if res.info()["content-encoding"] == 'gzip':
 				get=gunziptxt(get);
 		except Exception,err:
-			ssl.send("PRIVMSG "+chan+" :"+str(err)+"\n");
-			continue;
+			if 'content-encoding' in err:
+				pass;
+			else:
+				ssl.send("PRIVMSG "+chan+" :"+str(err)+"\n");
+				continue;
 		temp=re.compile('<title>(.[^<]*)').findall(get);
 		if temp:
 			ssl.send("PRIVMSG "+chan+" :"+"标题："+_decode(temp[0])+"\n");
