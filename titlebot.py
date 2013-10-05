@@ -9,7 +9,7 @@ import gzip;
 from StringIO import StringIO
 
 user="USER titlebot titlebot irc.freenode.net :Brisk's titlebot\n";
-nick="NICK _titlebot\n";
+nick="NICK titlebot_\n";
 channel=['#debian_cn'];
 
 def join_channel(ssl):
