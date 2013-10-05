@@ -9,7 +9,7 @@ import gzip;
 from StringIO import StringIO
 
 user="USER titlebot titlebot irc.freenode.net :Brisk's titlebot\n";
-nick="NICK titlebot_\n";
+nick="NICK _titlebot\n";
 channel=['#debian_cn'];
 
 def join_channel(ssl):
@@ -49,9 +49,11 @@ def gunziptxt(data):
 	return outdata;
 
 def get_title(ssl,p,chan):
+	headers={'User-Agent':'titlebot/1.0'};
 	for url in p:
+		req=urllib2.Request(url,headers=headers);
 		try:
-			res=urllib2.urlopen(url);
+			res=urllib2.urlopen(req,timeout=5);
 			get=res.read();
 			if res.info()["content-encoding"] == 'gzip':
 				get=gunziptxt(get);
