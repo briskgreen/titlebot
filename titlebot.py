@@ -63,9 +63,11 @@ def get_title(ssl,p,chan):
 			else:
 				ssl.send("PRIVMSG "+chan+" :"+str(err)+"\n");
 				continue;
-		temp=re.compile('<title>(.[^<]*)').findall(get);
+		temp=re.compile('<title>(.[^<]*)',re.S).findall(get);
 		if temp:
-			ssl.send("PRIVMSG "+chan+" :"+"标题："+_decode(temp[0])+"\n");
+			temp1=temp[0].replace("\n"," ");
+			temp2=temp1.replace("\r"," ");
+			ssl.send("PRIVMSG "+chan+" :"+"标题："+_decode(temp2)+"\n");
 		else:
 			ssl.send("PRIVMSG "+chan+" :啊哦，淫家木有发现标题了啦@.@\n");
 
