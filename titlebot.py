@@ -53,7 +53,7 @@ def get_title(ssl,p,chan):
 	for url in p:
 		req=urllib2.Request(url,headers=headers);
 		try:
-			res=urllib2.urlopen(req,timeout=5);
+			res=urllib2.urlopen(req,timeout=10);
 			get=res.read();
 			if res.info()["content-encoding"] == 'gzip':
 				get=gunziptxt(get);
