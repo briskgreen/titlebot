@@ -63,7 +63,7 @@ def get_title(ssl,p,chan):
 			else:
 				ssl.send("PRIVMSG "+chan+" :"+str(err)+"\n");
 				continue;
-		temp=re.compile('<title>(.[^<]*)',re.S).findall(get);
+		temp=re.compile('<[Tt][Ii][Tt][Ll][Ee]>(.[^<]*)',re.S).findall(get);
 		if temp:
 			temp1=temp[0].replace("\n"," ");
 			temp2=temp1.replace("\r"," ");
