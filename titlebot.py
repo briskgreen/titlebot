@@ -35,6 +35,11 @@ def _decode(str):
 		return str.decode('gbk').encode('utf-8');
 	except:
 		pass;
+	try:
+		str.decode('big5');
+		return str.decode('big5').encode('utf-8');
+	except:
+		pass;
 	return str;
 
 def pong_serv(ssl,str):
