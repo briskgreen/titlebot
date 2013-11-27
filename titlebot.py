@@ -10,7 +10,7 @@ from StringIO import StringIO
 
 user="USER titlebot titlebot irc.freenode.net :Brisk's titlebot\n";
 nick="NICK titlebot_\n";
-channel=['#debian_cn'];
+channel=['#debian_cn','#gtk-zh'];
 
 def join_channel(ssl):
 	for c in channel:
