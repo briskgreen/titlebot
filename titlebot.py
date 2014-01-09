@@ -103,7 +103,10 @@ while True:
     if p:
 	    get_magnet(ssl,p,get_channel(data));
 	    del(p);
-    if 'PING' in data and 'PRIVMSG' not in data:
+    #if 'PING' in data and 'PRIVMSG' not in data:
+    p=re.compile('^PING :.*').findall(data);
+    if p:
 	    pong_serv(ssl,data);
+	    del(p);
     del(data);
 
