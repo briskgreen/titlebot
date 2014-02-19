@@ -2,6 +2,7 @@
 # encoding=utf-8
 
 import socket;
+import select;
 import re;
 import urllib2;
 import ssl;
@@ -91,6 +92,9 @@ ssl.send(nick);
 join_channel(ssl);
 
 while True:
+    ready=select.select([s],[],[],5*60);
+    if not ready:
+	    quit();
     data=ssl.recv(1024);
     if not data:
 	    quit();
