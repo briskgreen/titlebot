@@ -67,6 +67,8 @@ def get_title(ssl,p,chan):
 			if 'content-encoding' in err:
 				pass;
 			else:
+				err=str(err).replace("\n"," ");
+				err=err.replace("\r"," ");
 				ssl.send("PRIVMSG "+chan+" :"+str(err)+"\n");
 				continue;
 		temp=re.compile('<[Tt][Ii][Tt][Ll][Ee]>(.[^<]*)',re.S).findall(get);
